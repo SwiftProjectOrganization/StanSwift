@@ -57,8 +57,11 @@ public func stanSummary(modelPath: String,
   let filePath = modelPath + "/" + model + "_summary.csv"
 
   do {
+    var isDirectory: ObjCBool = false
+    if fileManager.fileExists(atPath: filePath, isDirectory: &isDirectory) {
       try fileManager.removeItem(atPath: filePath)
       print("\(model)_summary.csv deleted successfully, will create a new one.")
+    }
   } catch {
       print("Error deleting file \(model)_summary.csv: \(error)")
   }
