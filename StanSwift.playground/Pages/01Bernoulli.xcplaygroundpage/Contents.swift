@@ -18,4 +18,5 @@ stanSummary(modelPath: modelPath,
             model: model,
             cmdstan: cmdstan)
 
+
 //: [TOC](00TOC) | [Previous](@previous) | [Next](@next)
