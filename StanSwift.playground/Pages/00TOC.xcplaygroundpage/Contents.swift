@@ -1,6 +1,7 @@
 //: # StanSwift
 /*:
  # Table of Contents
- * [Bernoulli](01Bernoulli)
- * [Normal](02Normal)
+ * [Sample](01Sample)
+ * [Optimize](02Optimize)
+ * [Pathfinder](03Pathfinder)
 */

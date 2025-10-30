@@ -1,6 +1,6 @@
 //: # StanSwift
 //: [TOC](00TOC) | [Previous](@previous) | [Next](@next)
-//: ## 01 Bernoulli
+//: ## 02 Normal
 
 import Cocoa
 import Foundation
@@ -11,12 +11,11 @@ let modelPath = "\(cmdstan)/examples/\(model)"
 stanCompile(modelPath: modelPath,
             model: model)
 
-stanRun(modelPath: modelPath,
-        model: model)
+pathfinder(modelPath: modelPath,
+        model: model,
+         arguments: ["pathfinder", "num_threads=4"])
 
-stanSummary(modelPath: modelPath,
-            model: model,
-            cmdstan: cmdstan)
-
+//getPathfinderResult(modelPath: modelPath,
+//                  model: model)
 
 //: [TOC](00TOC) | [Previous](@previous) | [Next](@next)

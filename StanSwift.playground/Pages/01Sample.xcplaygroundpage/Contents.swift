@@ -1,6 +1,6 @@
 //: # StanSwift
 //: [TOC](00TOC) | [Previous](@previous) | [Next](@next)
-//: ## 02 Normal
+//: ## 01 Bernoulli
 
 import Cocoa
 import Foundation
@@ -11,11 +11,12 @@ let modelPath = "\(cmdstan)/examples/\(model)"
 stanCompile(modelPath: modelPath,
             model: model)
 
-stanRun(modelPath: modelPath,
+sample(modelPath: modelPath,
         model: model)
 
 stanSummary(modelPath: modelPath,
             model: model,
             cmdstan: cmdstan)
+
 
 //: [TOC](00TOC) | [Previous](@previous) | [Next](@next)
