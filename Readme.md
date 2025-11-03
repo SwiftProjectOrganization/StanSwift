@@ -12,6 +12,10 @@
 
 Simple playground to use Stan's cmdstan executable.
 
+Currently includes sample, optimize and pathfinder methods.
+
+See [SwiftStats](https://github.com/SwiftProjectOrganization/SwiftStats) for usage examples.
+
 ## Details
 
 Expects a working `cmdstan` installation in the location specified in Basics.swift.
