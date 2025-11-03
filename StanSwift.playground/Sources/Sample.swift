@@ -41,3 +41,44 @@ public func stanSummary(modelPath: String,
                                 modelPath + "/" + model + "_output_4.csv",
                                "--csv_filename", modelPath + "/" + model + "_summary.csv"])
 }
+
+public func getSampleResult(modelPath: String,
+                        model: String,) -> [String] {
+                          
+  let fileManager = FileManager.default
+  var theResult: [String] = []
+
+  for i in 1...4 {
+    do {
+      var isDirectory: ObjCBool = false
+      let filePath: String? = modelPath + "/" + model + "_output_\(i).csv"
+      if fileManager.fileExists(atPath: filePath!, isDirectory: &isDirectory) {
+        if let path = filePath {
+            do {
+              let data = try String(contentsOfFile: path, encoding: .utf8)
+              let myStrings = data.components(separatedBy: .newlines)
+              for result in myStrings {
+                if result.count > 0 {
+                  let index = result.index(result.startIndex, offsetBy: 0)
+                  let character = result[index]
+                  if character != "#" {
+                    //print(result)
+                    theResult.append(result)
+                  }
+                }
+              }
+            } catch {
+              print(error.localizedDescription)
+            }
+        }
+      } else {
+        print("\(model)_output_\(i).csv not found.")
+      }
+    }
+    createCSV(from: theResult,
+              modelPath: modelPath,
+              model: model,
+              kind: "samples_\(i)")
+  }
+  return theResult
+}

@@ -14,6 +14,9 @@ stanCompile(modelPath: modelPath,
 sample(modelPath: modelPath,
         model: model)
 
+getSampleResult(modelPath: modelPath,
+                model: model)
+
 stanSummary(modelPath: modelPath,
             model: model,
             cmdstan: cmdstan)

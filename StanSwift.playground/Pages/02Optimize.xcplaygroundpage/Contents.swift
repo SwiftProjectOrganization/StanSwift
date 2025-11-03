@@ -12,10 +12,11 @@ stanCompile(modelPath: modelPath,
             model: model)
 
 optimize(modelPath: modelPath,
-        model: model,
+         model: model,
          arguments: ["optimize", "save_iterations=true"])
 
 getOptimizeResult(modelPath: modelPath,
                   model: model)
+
 
 //: [TOC](00TOC) | [Previous](@previous) | [Next](@next)

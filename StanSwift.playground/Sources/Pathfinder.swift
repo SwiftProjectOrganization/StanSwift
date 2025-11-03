@@ -13,12 +13,14 @@ public func pathfinder(modelPath: String,
   var args = arguments
   args.append(contentsOf: ["data", "file=" + modelPath + "/" + model + ".data.json"])
   args.append(contentsOf: ["output", "file=" + modelPath + "/" + model + "_pathfinder.csv"])
-  print(args)
+  //print(args)
   return swiftSyncFileExec(program: modelPath + "/" + model,
                            arguments: args)
 }
 
-public func getPathfinderResult(result: String) -> [String] {
+public func getPathfinderResult(result: String,
+                                modelPath: String,
+                                model: String) -> [String] {
   
   var theResult: [String] = []
   var copy = false
@@ -27,20 +29,28 @@ public func getPathfinderResult(result: String) -> [String] {
     do {
       let myStrings = result.components(separatedBy: .newlines)
       for result in myStrings {
-        if result.count > 0 {
-          let index = result.index(result.startIndex, offsetBy: 0)
-          let index4 = result.index(result.startIndex, offsetBy: 4)
-          let contents = result[index...index4]
-          if contents != "Path" {
+        //print(result.count)
+        if result.count > 4 {
+          //let index = result.index(result.startIndex, offsetBy: 0)
+          //let index4 = result.index(result.startIndex, offsetBy: 4)
+          //let contents = result[index...index4]
+          if !copy && result.count == 25 && result == "num_threads = 1 (Default)" {
             copy = true
+            continue
           }
           if copy {
-            print(result)
-            theResult.append(result)
+            theResult.append(result + "\n")
           }
         }
       }
     }
   }
+  
+  //TODO: Reformat into a proper csv format?
+  createCSV(from: theResult,
+              modelPath: modelPath,
+              model: model,
+              kind: "pathfinder")
+  
   return theResult
 }

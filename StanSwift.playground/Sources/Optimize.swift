@@ -7,6 +7,10 @@
 
 import Foundation
 
+protocol Decodable {
+  init(from decoder: Decoder) throws
+}
+
 public func optimize(modelPath: String,
                     model: String,
                     arguments: [String] = ["pathfinder"]) -> (String, String) {
@@ -19,7 +23,7 @@ public func optimize(modelPath: String,
 }
 
 public func getOptimizeResult(modelPath: String,
-                        model: String) -> [String] {
+                        model: String,) -> [String] {
                           
   let fileManager = FileManager.default
   let filePath: String? = modelPath + "/" + model + "_optimize.csv"
@@ -37,7 +41,7 @@ public func getOptimizeResult(modelPath: String,
                 let index = result.index(result.startIndex, offsetBy: 0)
                 let character = result[index]
                 if character != "#" {
-                  print(result)
+                  //print(result)
                   theResult.append(result)
                 }
               }
@@ -50,5 +54,10 @@ public func getOptimizeResult(modelPath: String,
       print("\(model)_summary.csv not found.")
     }
   }
+  createCSV(from: theResult,
+            modelPath: modelPath,
+            model: model,
+            kind: "optimize")
+
   return theResult
 }
