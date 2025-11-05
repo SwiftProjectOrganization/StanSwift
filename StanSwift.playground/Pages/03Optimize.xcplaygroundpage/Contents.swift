@@ -1,6 +1,6 @@
 //: # StanSwift
 //: [TOC](00TOC) | [Previous](@previous) | [Next](@next)
-//: ## 01 Bernoulli
+//: ## 03 Stan optimize method
 
 import Cocoa
 import Foundation
@@ -11,10 +11,12 @@ let modelPath = "\(cmdstan)/examples/\(model)"
 stanCompile(modelPath: modelPath,
             model: model)
 
-sample(modelPath: modelPath,
-        model: model)
+optimize(modelPath: modelPath,
+         model: model,
+         arguments: ["optimize", "save_iterations=true"])
 
-getSampleResult(modelPath: modelPath,
-                model: model)
+getOptimizeResult(modelPath: modelPath,
+                  model: model)
+
 
 //: [TOC](00TOC) | [Previous](@previous) | [Next](@next)
