@@ -55,6 +55,8 @@ public func getSampleResult(modelPath: String,
       if fileManager.fileExists(atPath: filePath!, isDirectory: &isDirectory) {
         if let path = filePath {
             do {
+              var count = 0
+              print("Reading file \(path).")
               let data = try String(contentsOfFile: path, encoding: .utf8)
               let myStrings = data.components(separatedBy: .newlines)
               for result in myStrings {
@@ -62,8 +64,10 @@ public func getSampleResult(modelPath: String,
                   let index = result.index(result.startIndex, offsetBy: 0)
                   let character = result[index]
                   if character != "#" {
-                    //print(result)
-                    theResult.append(result)
+                    if (i == 1) || (i > 1 && count > 0) {
+                      theResult.append(result)
+                    }
+                    count += 1
                   }
                 }
               }
@@ -75,10 +79,10 @@ public func getSampleResult(modelPath: String,
         print("\(model)_output_\(i).csv not found.")
       }
     }
-    createCSV(from: theResult,
-              modelPath: modelPath,
-              model: model,
-              kind: "samples_\(i)")
   }
+  createCSV(from: theResult,
+            modelPath: modelPath,
+            model: model,
+            kind: "samples")
   return theResult
 }
