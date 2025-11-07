@@ -1,6 +1,6 @@
 //: # StanSwift
 //: [TOC](00TOC) | [Previous](@previous) | [Next](@next)
-//: ## 01 Bernoulli
+//: ## 01 Stan sample method
 
 import Cocoa
 import Foundation

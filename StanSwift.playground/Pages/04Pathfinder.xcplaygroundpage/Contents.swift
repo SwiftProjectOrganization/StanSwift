@@ -1,6 +1,6 @@
 //: # StanSwift
 //: [TOC](00TOC) | [Previous](@previous) | [Next](@next)
-//: ## 02 Normal
+//: ## 04 Stan pathfinder method
 
 import Cocoa
 import Foundation
