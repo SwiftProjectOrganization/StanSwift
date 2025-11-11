@@ -6,15 +6,19 @@ import Cocoa
 import Foundation
 
 let model = "bernoulli"
-let modelPath = "\(cmdstan)/examples/\(model)"
+let modelPath = "/Users/rob/StanSwift/bernoulli"
 
-stanCompile(modelPath: modelPath,
+let result = stanCompile(modelPath: modelPath,
             model: model)
 
-sample(modelPath: modelPath,
-        model: model)
+if result.1 != "Quarantine present" {
+  sample(modelPath: modelPath,
+          model: model)
 
-getSampleResult(modelPath: modelPath,
-                model: model)
+  getSampleResult(modelPath: modelPath,
+                  model: model)
+} else {
+  print("Quarantine is present, run: \"xattr -d com.apple.quarantine \(modelPath + "/" + model)\" in a terminal to clear.")
+}
 
 //: [TOC](00TOC) | [Previous](@previous) | [Next](@next)

@@ -15,6 +15,7 @@ func swiftSyncFileExec(program: String,
   let process = Process()
   process.executableURL = URL(fileURLWithPath: program)
   process.arguments = arguments
+  //print(arguments)
   
   let outputPipe = Pipe()
   let errorPipe = Pipe()
@@ -34,9 +35,43 @@ func swiftSyncFileExec(program: String,
 
 public func stanCompile(modelPath: String,
                         model: String) -> (String, String) {
-  return swiftSyncFileExec(program: "/usr/bin/make",
-                           arguments: [ modelPath + "/" + model ])
+  
+  let result = createStanBinary(modelPath: modelPath, model: model)
+  //print(result)
+  
+  let result1 = checkQuarantine(modelPath: modelPath, model: model)
+  //print(result1)
+  
+  if result1.0.count > 0 {
+    //let result2 = removeQuarantine(modelPath: modelPath, model: model)
+    //print(result2)
+    return ("", "Quarantine present")
+  }
+  
+  return result
 }
+
+func createStanBinary(modelPath: String,
+                             model: String) -> (String, String) {
+  let result = swiftSyncFileExec(program: "/usr/bin/make",
+                                 arguments: ["-C", cmdstan, modelPath + "/" + model ])
+  return result
+}
+func checkQuarantine(modelPath: String,
+                      model: String) -> (String, String) {
+  let result = swiftSyncFileExec(program: "/usr/bin/xattr",
+                                 arguments: ["-l", modelPath + "/" + model])
+  return result
+}
+
+                    
+func removeQuarantine(modelPath: String,
+                      model: String) -> (String, String) {
+  let result = swiftSyncFileExec(program: "/usr/bin/xattr",
+                                 arguments: ["-d", "com.apple.quarantine", modelPath + "/" + model])
+  return result
+}
+
 
 public func replaceNanByNil(_ filePath: String) {
   // Step 1: Read the file content

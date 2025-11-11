@@ -6,7 +6,7 @@ import Cocoa
 import Foundation
 
 let model = "bernoulli"
-let modelPath = "\(cmdstan)/examples/\(model)"
+let modelPath = "/Users/rob/StanSwift/\(model)"
 
 stanCompile(modelPath: modelPath,
             model: model)
